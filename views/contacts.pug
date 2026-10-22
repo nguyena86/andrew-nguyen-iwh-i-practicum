@@ -1,15 +1,44 @@
-//- ** This is a sample of a pug template and how it uses the data passed to it from index.js.
-
-//- doctype html
-//- html 
-//-     head 
-//-         title= `${title}`
-//-         meta(name="viewport" content="width=device-width, initial-scale=1")
-//-         link(rel="stylesheet", href="/css/style.css")
-//-     body    
-//-         h1 Contacts
-//-         .cards 
-//-             each contact in data
-//-                 .card 
-//-                     h2.card__name #{contact.properties.firstname}  #{contact.properties.lastname}
-//-                     p.card__email #{contact.properties.email}
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title Editable Data Management Table
+    link(rel="stylesheet", href="/css/style.css")
+  body
+    .table-container
+      h2 Customer Rewards Information
+      
+      table.responsive-table
+        thead
+          tr
+            th Customer Name
+            th Email
+            th Rewards Member Tier
+            th Rewards Membership
+            th Total Property Count
+            th Total Property Amount (\$)
+            th Actions
+        tbody
+          if data && data.length > 0
+            each contact in data
+              tr
+                //- Separate form for each row to update individual records
+                td= contact.properties.firstname + ' ' + contact.properties.lastname
+                td= contact.properties.email
+                td
+                  input(type="text" name="rewards_member_tier" value=contact.properties.rewards_member_tier form=`form-${contact.properties.email}` required)
+                td
+                  input(type="text" name="rewards_membership" value=contact.properties.rewards_membership form=`form-${contact.properties.email}` required)
+                td
+                  input(type="number" name="total_property_count" value=contact.properties.total_property_count form=`form-${contact.properties.email}` step="1" min="0" required)
+                td
+                  input(type="number" name="total_property_amount" value=contact.properties.total_property_amount form=`form-${contact.properties.email}` step="0.01" min="0" required)
+                td
+                  //- The actual hidden form that submits the row data
+                  form(id=`form-${contact.properties.email}` action=`/update` method="POST")
+                    input(type="hidden" name="email" value=contact.properties.email)
+                    button(type="submit" class="btn-update") Update 
+          else
+            tr
+              td(colspan="7" class="no-data") No records found.
