@@ -4,7 +4,23 @@ This repository is for the Integrating With HubSpot I: Foundations course. This 
 
 To read the full directions, please go to the [practicum instructions](https://app.hubspot.com/academy/l/tracks/1092124/1093824/5493?language=en).
 
-**Put your HubSpot developer test account custom objects URL link here:** https://app.hubspot.com/contacts/l/objects/${custom-obj-number}/views/all/list
+
+Do not have access to Custom Object so will use Contact instead.
+
+Scenario:
+Created 4 new properties :-
+    Rewards Member Tier   	rewards_member_tier
+    Rewards Membership	    rewards_membership
+    Total Property Amount	total_property_amount
+    Total Property Count	total_property_count
+
+app.get to retrieve a list of contacts with the 4 new properties, allowing updates to the new properties
+app.post to patch the update to contact record.
+
+**Put your HubSpot developer test account custom objects URL link here:** https://app-ap1.hubspot.com/contacts/443810136/objects/0-1/views/all/list
+
+
+
 
 ___
 ## Tips:
